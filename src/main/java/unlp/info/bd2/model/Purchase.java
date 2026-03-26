@@ -1,27 +1,51 @@
 package unlp.info.bd2.model;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "purchase")
 public class Purchase {
 
-    Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false, unique = true)
     private String code;
 
+    @Column(nullable = false)
     private float totalPrice;
 
+    @Column(nullable = false)
     private Date date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id")
     private Route route;
 
+    @OneToOne(mappedBy = "purchase", optional = true)
     private Review review;
 
-    private List<ItemService> itemServiceList;
+    @OneToMany(mappedBy = "purchase") // lado inverso, NO tiene la FK
+    private List<ItemService> itemServiceList = new ArrayList<>();
 
+    public void addItem(ItemService item) {
+        itemServiceList.add(item);
+        item.setPurchase(this);
+    }
 
+    public void addReview(Review review) {
+        this.review = review;
+        review.setPurchase(this); // sincronizamos el otro lado
+    }
 
     public Long getId() {
         return id;

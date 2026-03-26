@@ -1,13 +1,18 @@
 package unlp.info.bd2.model;
 
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class DriverUser extends User {
 
+    @Column
     private String expedient;
 
-    private List<Route> routes;
+    @ManyToMany(mappedBy = "driverList") // lado inverso, Route es el dueño
+    private List<Route> routes = new ArrayList<>();
 
     public String getExpedient() {
         return expedient;

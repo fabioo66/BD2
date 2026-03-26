@@ -1,13 +1,25 @@
 package unlp.info.bd2.model;
 
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "stop")
 public class Stop {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id", nullable = false)
+    private Route route; // dueño de la relación, tiene la FK
 
 
     public Long getId() {

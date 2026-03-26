@@ -1,15 +1,25 @@
 package unlp.info.bd2.model;
 
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "review")
 public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private int rating;
 
+    @Column
     private String comment;
 
-    private Purchase purchase;
+    @OneToOne
+    @JoinColumn(name = "purchase_id", nullable = false)
+    private Purchase purchase; // dueño de la relación, tiene la FK
 
 
     public Long getId() {

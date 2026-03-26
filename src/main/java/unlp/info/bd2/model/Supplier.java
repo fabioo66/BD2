@@ -1,16 +1,25 @@
 package unlp.info.bd2.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "supplier")
 public class Supplier {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String businessName;
 
+    @Column(nullable = false, unique = true)
     private String authorizationNumber;
 
-    private List<Service> services;
+    @OneToMany(mappedBy = "supplier") // lado inverso, Service tiene la FK
+    private List<Service> services = new ArrayList<>();
 
     public Long getId() {
         return id;

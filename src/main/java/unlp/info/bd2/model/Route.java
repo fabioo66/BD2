@@ -3,23 +3,58 @@ package unlp.info.bd2.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "route")
 public class Route {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private float price;
 
+    @Column(nullable = false)
     private float totalKm;
 
+    @Column(nullable = false)
     private int maxNumberUsers;
 
-    private List<Stop> stops;
+    @OneToMany(mappedBy = "route")
+    private List<Stop> stops = new ArrayList<>();
 
-    private List<DriverUser> driverList;
+    @ManyToMany
+    @JoinTable(
+            name = "route_driver", // nombre de la tabla join
+            joinColumns = @JoinColumn(name = "route_id"), // FK hacia Route
+            inverseJoinColumns = @JoinColumn(name = "driver_id") // FK hacia DriverUser
+    )
+    private List<DriverUser> driverList = new ArrayList<>();
 
-    private List<TourGuideUser> tourGuideList;
+    @ManyToMany
+    @JoinTable(
+            name = "route_tourguide", // nombre de la tabla join
+            joinColumns = @JoinColumn(name = "route_id"), // FK hacia Route
+            inverseJoinColumns = @JoinColumn(name = "tourguide_id") // FK hacia TourGuideUser
+    )
+    private List<TourGuideUser> tourGuideList = new ArrayList<>();
+
+    public void addDriver(DriverUser driver) {
+        driverList.add(driver);
+        driver.getRoutes().add(this); // sincronizamos el otro lado
+    }
+
+    public void addTourGuide(TourGuideUser guide) {
+        tourGuideList.add(guide);
+        guide.getRoutes().add(this); // sincronizamos el otro lado
+    }
 
     public Long getId() {
         return id;

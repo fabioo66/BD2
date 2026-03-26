@@ -1,23 +1,26 @@
 package unlp.info.bd2.model;
 
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "item_service")
 public class ItemService {
 
-    Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     private int quantity;
 
-    private Purchase purchase;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "purchase_id", nullable = false)
+    private Purchase purchase; // dueño de la relación, tiene la FK
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", nullable = false)
     private Service service;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 
     public int getQuantity() {

@@ -18,7 +18,7 @@ public class Supplier {
     @Column(nullable = false, unique = true)
     private String authorizationNumber;
 
-    @OneToMany(mappedBy = "supplier") // lado inverso, Service tiene la FK
+    @OneToMany(mappedBy = "supplier", cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // lado inverso, Service tiene la FK
     private List<Service> services = new ArrayList<>();
 
     public Long getId() {

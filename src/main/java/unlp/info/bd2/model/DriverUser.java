@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("DRIVER")
 public class DriverUser extends User {
 
-    @Column
     private String expedient;
 
     @ManyToMany(mappedBy = "driverList") // lado inverso, Route es el dueño

@@ -27,7 +27,7 @@ public class Route {
     @Column(nullable = false)
     private int maxNumberUsers;
 
-    @OneToMany(mappedBy = "route")
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stop> stops = new ArrayList<>();
 
     @ManyToMany

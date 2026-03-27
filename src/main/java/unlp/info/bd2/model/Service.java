@@ -25,6 +25,8 @@ public class Service {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    private List<ItemService> itemServiceList = new ArrayList<>();
+
 
     public Long getId() {
         return id;

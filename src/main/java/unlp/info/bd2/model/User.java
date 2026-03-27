@@ -1,15 +1,25 @@
 package unlp.info.bd2.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("USER")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
     private String name;
@@ -18,11 +28,13 @@ public class User {
 
     private Date birthdate;
 
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     private boolean active;
 
-    private List<Purchase> purchaseList;
+    @OneToMany(mappedBy = "user")
+    private List<Purchase> purchaseList = new ArrayList<>();
 
 
     public Long getId() {

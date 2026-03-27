@@ -31,10 +31,10 @@ public class Purchase {
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(mappedBy = "purchase", optional = true)
+    @OneToOne(mappedBy = "purchase", optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
 
-    @OneToMany(mappedBy = "purchase") // lado inverso, NO tiene la FK
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true) // lado inverso, NO tiene la FK
     private List<ItemService> itemServiceList = new ArrayList<>();
 
     public void addItem(ItemService item) {

@@ -1,10 +1,13 @@
 package unlp.info.bd2.model;
 
 
-import java.util.ArrayList;
-import java.util.Date;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("GUIDE")
 public class TourGuideUser extends User {
 
     private String education;

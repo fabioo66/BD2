@@ -46,4 +46,8 @@ public class ItemService {
     public void setService(Service service) {
         this.service = service;
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }

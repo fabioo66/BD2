@@ -7,9 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("USER")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id

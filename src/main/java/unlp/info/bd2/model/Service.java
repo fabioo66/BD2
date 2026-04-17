@@ -25,6 +25,7 @@ public class Service {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    @OneToMany(mappedBy = "service")
     private List<ItemService> itemServiceList = new ArrayList<>();
 
 

@@ -1,18 +1,18 @@
 package unlp.info.bd2.model;
 
 
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("GUIDE")
 public class TourGuideUser extends User {
 
     private String education;
 
-    private List<Route> routes;
+    @ManyToMany(mappedBy = "tourGuideList")
+    private List<Route> routes = new java.util.ArrayList<>();
 
 
     public String getEducation() {

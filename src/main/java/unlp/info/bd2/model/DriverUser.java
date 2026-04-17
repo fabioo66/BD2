@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("DRIVER")
 public class DriverUser extends User {
 
     private String expedient;
@@ -26,7 +25,7 @@ public class DriverUser extends User {
         return routes;
     }
 
-    public void setRouts(List<Route> routs) {
-        this.routes = routs;
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
     }
 }
